@@ -4,10 +4,10 @@ from django.db.models.functions import Cast
 from django.db.models import Max, Sum, F, BigIntegerField, Q
 from .models import Person, Account
 
-def generate():
+def generate(person_count, account_count):
     persons = []
     accounts = []
-    for i in range(1000000):
+    for i in range(person_count):
         length = random.randint(1, 10)
         persons.append(Person(
             first_name=''.join(random.choices(string.ascii_lowercase, k=length)),
@@ -15,9 +15,9 @@ def generate():
             ssn=''.join(random.choices(string.digits, k = 10)),
         ))
     persons = Person.objects.bulk_create(persons)
-    for i in range(20000):
+    for i in range(account_count):
         accounts.append(Account(
-            balance = random.randint(0, 1000000),
+            balance = random.randint(0, 10000000),
             owner = random.choice(persons),
         ))
     accounts = Account.objects.bulk_create(accounts)
