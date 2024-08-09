@@ -9,3 +9,7 @@ class Person(models.Model):
 class Account(models.Model):
     balance = models.PositiveIntegerField(default=0)
     owner = models.ForeignKey(Person, on_delete=models.PROTECT)
+    class Meta:
+        indexes = [
+            models.Index(fields=['balance'])
+        ]
